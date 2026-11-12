@@ -1,21 +1,41 @@
+using System.Collections;
 using UnityEngine;
 
 public class DiceAnimationScript : MonoBehaviour
 {
-    Animator animator;
+    private static readonly int IsRolling = Animator.StringToHash("isRolling");
+    private Animator animator;
+    private Coroutine rollRoutine;
 
-    void Start()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
     }
 
     public void ShakeDice()
     {
-        animator.SetBool("isRolling", true);
+        if (rollRoutine != null)
+        {
+            return;
+        }
+
+        animator.SetBool(IsRolling, true);
+        rollRoutine = StartCoroutine(StopAfterRoll());
     }
 
-    public void StopShakeDice()
+    private IEnumerator StopAfterRoll()
     {
-        animator.SetBool("isRolling", false);
+        while (!animator.GetCurrentAnimatorStateInfo(0).IsName("DiceRoll"))
+        {
+            yield return null;
+        }
+
+        while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+        {
+            yield return null;
+        }
+
+        animator.SetBool(IsRolling, false);
+        rollRoutine = null;
     }
 }

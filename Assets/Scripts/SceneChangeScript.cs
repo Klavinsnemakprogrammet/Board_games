@@ -9,16 +9,24 @@ public class SceneChangeScript : MonoBehaviour
     {
         StartCoroutine(Exit());
     }
+
+    public void LoadSettings()
+    {
+        SceneManager.LoadScene("SettingsScene");
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     IEnumerator Exit()
     {
         yield return new WaitForSeconds(0.8f);
-        if(UnityEditor.EditorApplication.isPlaying)
-        {
-            UnityEditor.EditorApplication.isPlaying = false;
-        }
-        else
-        {
-            Application.Quit();
-        }
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }

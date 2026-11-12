@@ -12,9 +12,10 @@ public class MusicScript : MonoBehaviour
     {
         musicSource = GetComponent<AudioSource>();
         musicSource.loop = false;
+        SetVolume(GameAudioSettings.MusicVolume);
     }
 
-    void Start()
+    private void Start()
     {
         PlayNextSong();
     }
@@ -27,7 +28,30 @@ public class MusicScript : MonoBehaviour
         }
     }
 
+    public void SetVolume(float volume)
+    {
+        if (musicSource != null)
+        {
+            musicSource.volume = Mathf.Clamp01(volume);
+        }
+    }
+
+    public void SkipSong()
+    {
+        PlayNextSong();
+    }
+
+    public void PlayPreviousSong()
+    {
+        PlaySong(-1);
+    }
+
     private void PlayNextSong()
+    {
+        PlaySong(1);
+    }
+
+    private void PlaySong(int direction)
     {
         if (songs == null || songs.Length == 0)
         {
@@ -36,9 +60,14 @@ public class MusicScript : MonoBehaviour
             return;
         }
 
+        if (direction < 0 && currentSongIndex < 0)
+        {
+            currentSongIndex = 0;
+        }
+
         for (int i = 0; i < songs.Length; i++)
         {
-            currentSongIndex = (currentSongIndex + 1) % songs.Length;
+            currentSongIndex = (currentSongIndex + direction + songs.Length) % songs.Length;
             if (songs[currentSongIndex] == null)
             {
                 continue;
