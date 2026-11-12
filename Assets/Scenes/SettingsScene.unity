@@ -5489,6 +5489,7 @@ MonoBehaviour:
   musicSlider: {fileID: 136809788}
   sfxSlider: {fileID: 320553599}
   cloudSpeedSlider: {fileID: 321562241}
+  resolutionDropdown: {fileID: 25224784}
   skipSongButton: {fileID: 1307990190}
   previousSongButton: {fileID: 502579076}
   musicPlayer: {fileID: 1858537036}
