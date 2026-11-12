@@ -5,6 +5,7 @@ public class SettingsAudioController : MonoBehaviour
 {
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
+    [SerializeField] private Slider cloudSpeedSlider;
     [SerializeField] private Button skipSongButton;
     [SerializeField] private Button previousSongButton;
     [SerializeField] private MusicScript musicPlayer;
@@ -29,6 +30,16 @@ public class SettingsAudioController : MonoBehaviour
         {
             sfxSlider.SetValueWithoutNotify(GameAudioSettings.SfxVolume);
             sfxSlider.onValueChanged.AddListener(SetSfxVolume);
+        }
+
+        if (cloudSpeedSlider == null)
+        {
+            Debug.LogError("The cloud speed slider has not been assigned.", this);
+        }
+        else
+        {
+            cloudSpeedSlider.SetValueWithoutNotify(GameCloudSettings.Speed);
+            cloudSpeedSlider.onValueChanged.AddListener(SetCloudSpeed);
         }
 
         if (musicPlayer == null)
@@ -71,6 +82,11 @@ public class SettingsAudioController : MonoBehaviour
             sfxSlider.onValueChanged.RemoveListener(SetSfxVolume);
         }
 
+        if (cloudSpeedSlider != null)
+        {
+            cloudSpeedSlider.onValueChanged.RemoveListener(SetCloudSpeed);
+        }
+
         if (skipSongButton != null)
         {
             skipSongButton.onClick.RemoveListener(SkipSong);
@@ -101,6 +117,11 @@ public class SettingsAudioController : MonoBehaviour
         {
             soundEffect.SetVolume(volume);
         }
+    }
+
+    private void SetCloudSpeed(float speed)
+    {
+        GameCloudSettings.SetSpeed(speed);
     }
 
     private void SkipSong()

@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 45335109}
   - component: {fileID: 45335108}
   - component: {fileID: 45335107}
+  - component: {fileID: 45335111}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -227,6 +228,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &45335111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45335106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2b76ba94d3b4ea5a84ff5db9d3ea769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cloudPrefabs:
+  - {fileID: 128741059677268104, guid: ceb4383b024794fb897d964d4e9a9c0a, type: 3}
+  - {fileID: 7247003967167482227, guid: 0d1998d3a01d346f39fcd2cd65a9b709, type: 3}
+  - {fileID: 7820385014907102573, guid: af735a0a328dc4cbeabace314eb5cf47, type: 3}
+  - {fileID: 4263407016146495052, guid: eed4e0a51931246f5a96282b2b5ff851, type: 3}
+  - {fileID: 3068419377695731701, guid: b0acac9bd564c49d8af6cfecb00d8100, type: 3}
+  cloudCount: 7
 --- !u!1 &136569706
 GameObject:
   m_ObjectHideFlags: 0
@@ -1439,7 +1459,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ""
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &895829271
@@ -1913,7 +1933,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: ""
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 1370552986}
@@ -1925,7 +1945,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: ""
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!95 &1370552985
