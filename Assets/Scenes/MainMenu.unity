@@ -2467,6 +2467,8 @@ MonoBehaviour:
   inputField: {fileID: 996939294}
   playerCount: 3
   sceneChangeScript: {fileID: 759910651}
+  playerCountSlider: {fileID: 455884926}
+  playerCountText: {fileID: 1707902604}
 --- !u!1 &797469149
 GameObject:
   m_ObjectHideFlags: 0
