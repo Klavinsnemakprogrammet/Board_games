@@ -13,7 +13,7 @@ public class SceneChangeScript : MonoBehaviour
     {
         StartCoroutine(Delay("quit", -1, "", -1));
     }
-    IEnumerator Delay(string action, int charIndex, string playerName, int playerCount)
+   public IEnumerator Delay(string action, int charIndex, string playerName, int playerCount)
     {
         if (string.Equals(action, "quit", StringComparison.OrdinalIgnoreCase))
         {
@@ -31,7 +31,7 @@ public class SceneChangeScript : MonoBehaviour
         }else if(string.Equals(action, "play", StringComparison.OrdinalIgnoreCase))
         {
             yield return fadeScript.FadeOut(0.5f);
-            // saveLoadScript.SavePlayerData(charIndex, playerName, playerCount);
+            saveLoadScript.SavePlayerData(charIndex, playerName, playerCount);
             SceneManager.LoadScene(1, LoadSceneMode.Single);
         } else if(string.Equals(action, "menu", StringComparison.OrdinalIgnoreCase))
         {
@@ -42,7 +42,7 @@ public class SceneChangeScript : MonoBehaviour
         }else if(string.Equals(action, "settings", StringComparison.OrdinalIgnoreCase))
         {
             yield return fadeScript.FadeOut(0.5f);
-            // saveLoadScript.SavePlayerData(charIndex, playerName, playerCount);
+            saveLoadScript.SavePlayerData(charIndex, playerName, playerCount);
             SceneManager.LoadScene(1, LoadSceneMode.Single);
         } else if(string.Equals(action, "settings", StringComparison.OrdinalIgnoreCase))
         {
