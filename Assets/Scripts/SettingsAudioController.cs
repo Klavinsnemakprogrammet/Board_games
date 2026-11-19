@@ -352,7 +352,8 @@ public static class GameGraphicsSettings
                 QualitySettings.lodBias = 2f;
                 QualitySettings.maximumLODLevel = 0;
                 QualitySettings.vSyncCount = 1;
-                ApplyPipelineQuality(1.25f, 4, 100f, 4096, 4);
+                ApplyPipelineQuality(
+                    1.25f, 4, 100f, 4096, 4, UpscalingFilterSelection.Auto);
                 break;
             case 1:
                 QualitySettings.shadows = UnityEngine.ShadowQuality.All;
@@ -362,7 +363,8 @@ public static class GameGraphicsSettings
                 QualitySettings.lodBias = 1f;
                 QualitySettings.maximumLODLevel = 0;
                 QualitySettings.vSyncCount = 1;
-                ApplyPipelineQuality(0.8f, 2, 35f, 1024, 2);
+                ApplyPipelineQuality(
+                    0.8f, 2, 35f, 1024, 2, UpscalingFilterSelection.Linear);
                 break;
             case 2:
                 QualitySettings.shadows = UnityEngine.ShadowQuality.Disable;
@@ -372,7 +374,8 @@ public static class GameGraphicsSettings
                 QualitySettings.lodBias = 0.5f;
                 QualitySettings.maximumLODLevel = 1;
                 QualitySettings.vSyncCount = 0;
-                ApplyPipelineQuality(0.5f, 1, 0f, 256, 1);
+                ApplyPipelineQuality(
+                    0.35f, 1, 0f, 256, 1, UpscalingFilterSelection.Point);
                 break;
         }
     }
@@ -382,7 +385,8 @@ public static class GameGraphicsSettings
         int msaaSamples,
         float shadowDistance,
         int shadowMapResolution,
-        int shadowCascadeCount)
+        int shadowCascadeCount,
+        UpscalingFilterSelection upscalingFilter)
     {
         if (runtimePipelineAsset == null)
         {
@@ -405,5 +409,6 @@ public static class GameGraphicsSettings
         runtimePipelineAsset.shadowDistance = shadowDistance;
         runtimePipelineAsset.mainLightShadowmapResolution = shadowMapResolution;
         runtimePipelineAsset.shadowCascadeCount = shadowCascadeCount;
+        runtimePipelineAsset.upscalingFilter = upscalingFilter;
     }
 }

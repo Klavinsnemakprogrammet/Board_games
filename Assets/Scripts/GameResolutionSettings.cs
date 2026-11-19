@@ -10,16 +10,18 @@ public static class GameResolutionSettings
     {
         if (!TryGetSavedResolution(out int width, out int height))
         {
+            Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
             return;
         }
 
         if (width <= 0 || height <= 0)
         {
             Debug.LogWarning("Ignoring an invalid saved screen resolution.");
+            Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
             return;
         }
 
-        Screen.SetResolution(width, height, Screen.fullScreenMode);
+        Screen.SetResolution(width, height, FullScreenMode.FullScreenWindow);
     }
 
     public static bool TryGetSavedResolution(out int width, out int height)
@@ -40,6 +42,6 @@ public static class GameResolutionSettings
         PlayerPrefs.SetInt(WidthKey, width);
         PlayerPrefs.SetInt(HeightKey, height);
         PlayerPrefs.Save();
-        Screen.SetResolution(width, height, Screen.fullScreenMode);
+        Screen.SetResolution(width, height, FullScreenMode.FullScreenWindow);
     }
 }
