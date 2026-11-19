@@ -44,10 +44,6 @@ public class SceneChangeScript : MonoBehaviour
             yield return fadeScript.FadeOut(0.5f);
             saveLoadScript.SavePlayerData(charIndex, playerName, playerCount);
             SceneManager.LoadScene(1, LoadSceneMode.Single);
-        } else if(string.Equals(action, "settings", StringComparison.OrdinalIgnoreCase))
-        {
-            yield return fadeScript.FadeOut(0.5f);
-            SceneManager.LoadScene(0, LoadSceneMode.Single);
         }
         
     }
