@@ -4469,6 +4469,7 @@ GameObject:
   - component: {fileID: 1987654321}
   - component: {fileID: 1987654322}
   - component: {fileID: 1987654323}
+  - component: {fileID: 1987654324}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -5623,7 +5624,8 @@ MonoBehaviour:
   musicSlider: {fileID: 136809788}
   sfxSlider: {fileID: 320553599}
   cloudSpeedSlider: {fileID: 321562241}
-  resolutionDropdown: {fileID: 0}
+  resolutionDropdown: {fileID: 25224784}
+  qualityDropdown: {fileID: 1939114891}
   skipSongButton: {fileID: 1307990190}
   previousSongButton: {fileID: 502579076}
   musicPlayer: {fileID: 1858537036}
@@ -5658,6 +5660,25 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e5c0b5435124eee4a9bab0e4dc5c16b7, type: 3}
   - {fileID: 8300000, guid: 8c8071df90d6549f8a33726c9a3fdb0a, type: 3}
   effectsSource: {fileID: 0}
+--- !u!114 &1987654324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1708680989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2b76ba94d3b4ea5a84ff5db9d3ea769, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  cloudPrefabs:
+  - {fileID: 128741059677268104, guid: ceb4383b024794fb897d964d4e9a9c0a, type: 3}
+  - {fileID: 7247003967167482227, guid: 0d1998d3a01d346f39fcd2cd65a9b709, type: 3}
+  - {fileID: 7820385014907102573, guid: af735a0a328dc4cbeabace314eb5cf47, type: 3}
+  - {fileID: 4263407016146495052, guid: eed4e0a51931246f5a96282b2b5ff851, type: 3}
+  - {fileID: 3068419377695731701, guid: b0acac9bd564c49d8af6cfecb00d8100, type: 3}
+  cloudCount: 7
 --- !u!1 &2043722283
 GameObject:
   m_ObjectHideFlags: 0
@@ -5753,7 +5774,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Option A
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5434d35063587400d99fc4946d2e9e70, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -5781,7 +5802,7 @@ MonoBehaviour:
   m_fontSize: 14
   m_fontSizeBase: 14
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -5819,7 +5840,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &2082501530

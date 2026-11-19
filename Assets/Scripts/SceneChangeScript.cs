@@ -18,7 +18,6 @@ public class SceneChangeScript : MonoBehaviour
         if (string.Equals(action, "quit", StringComparison.OrdinalIgnoreCase))
         {
             yield return new WaitForSeconds(0.8f);
-            PlayerPrefs.DeleteAll();
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else

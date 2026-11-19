@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,8 @@ public class SettingsAudioController : MonoBehaviour
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
     [SerializeField] private Slider cloudSpeedSlider;
-    [SerializeField] private Dropdown resolutionDropdown;
+    [SerializeField] private TMP_Dropdown resolutionDropdown;
+    [SerializeField] private TMP_Dropdown qualityDropdown;
     [SerializeField] private Button skipSongButton;
     [SerializeField] private Button previousSongButton;
     [SerializeField] private MusicScript musicPlayer;
@@ -48,6 +50,7 @@ public class SettingsAudioController : MonoBehaviour
         }
 
         InitializeResolutionDropdown();
+        InitializeQualityDropdown();
 
         if (musicPlayer == null)
         {
@@ -99,6 +102,11 @@ public class SettingsAudioController : MonoBehaviour
             resolutionDropdown.onValueChanged.RemoveListener(SetDisplayResolution);
         }
 
+        if (qualityDropdown != null)
+        {
+            qualityDropdown.onValueChanged.RemoveListener(SetGraphicsQuality);
+        }
+
         if (skipSongButton != null)
         {
             skipSongButton.onClick.RemoveListener(SkipSong);
@@ -136,21 +144,52 @@ public class SettingsAudioController : MonoBehaviour
         GameCloudSettings.SetSpeed(speed);
     }
 
+    private void InitializeQualityDropdown()
+    {
+        if (qualityDropdown == null)
+        {
+            Transform qualityGroup = transform.Find("Quality");
+            if (qualityGroup != null)
+            {
+                qualityDropdown = qualityGroup.GetComponentInChildren<TMP_Dropdown>(true);
+            }
+        }
+
+        if (qualityDropdown == null)
+        {
+            Debug.LogError(
+                "No TextMeshPro quality dropdown is assigned or found under the 'Quality' group.",
+                this);
+            return;
+        }
+
+        qualityDropdown.ClearOptions();
+        qualityDropdown.AddOptions(GameGraphicsSettings.GetQualityOptions());
+        qualityDropdown.SetValueWithoutNotify(GameGraphicsSettings.QualityIndex);
+        qualityDropdown.RefreshShownValue();
+        qualityDropdown.onValueChanged.AddListener(SetGraphicsQuality);
+    }
+
+    private void SetGraphicsQuality(int selectedIndex)
+    {
+        GameGraphicsSettings.SetQualityIndex(selectedIndex);
+    }
+
     private void InitializeResolutionDropdown()
     {
         if (resolutionDropdown == null)
         {
-            resolutionDropdown = FindObjectsByType<Dropdown>(
-                    FindObjectsInactive.Include, FindObjectsSortMode.None)
-                .FirstOrDefault(dropdown =>
-                    dropdown.transform.parent != null &&
-                    dropdown.transform.parent.name == "Resolution");
+            Transform resolutionGroup = transform.Find("Resolution");
+            if (resolutionGroup != null)
+            {
+                resolutionDropdown = resolutionGroup.GetComponentInChildren<TMP_Dropdown>(true);
+            }
         }
 
         if (resolutionDropdown == null)
         {
             Debug.LogError(
-                "No Unity UI Dropdown is assigned or found under the 'Resolution' group.",
+                "No TextMeshPro resolution dropdown is assigned or found under the 'Resolution' group.",
                 this);
             return;
         }
@@ -192,6 +231,11 @@ public class SettingsAudioController : MonoBehaviour
         foreach (Resolution resolution in Screen.resolutions)
         {
             AddResolution(resolutions, resolution.width, resolution.height);
+        }
+
+        if (GameResolutionSettings.TryGetSavedResolution(out int savedWidth, out int savedHeight))
+        {
+            AddResolution(resolutions, savedWidth, savedHeight);
         }
 
         AddResolution(resolutions, Screen.width, Screen.height);
@@ -257,6 +301,73 @@ public class SettingsAudioController : MonoBehaviour
         {
             Width = width;
             Height = height;
+        }
+    }
+}
+
+public static class GameGraphicsSettings
+{
+    private const string QualityPreferenceKey = "GraphicsQuality";
+    private const int QualityOptionCount = 3;
+
+    public static int QualityIndex =>
+        Mathf.Clamp(PlayerPrefs.GetInt(QualityPreferenceKey, 0), 0, QualityOptionCount - 1);
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void ApplySavedQuality()
+    {
+        ApplyQuality(QualityIndex);
+    }
+
+    public static List<string> GetQualityOptions()
+    {
+        return new List<string> { "Great", "OK", "Potato" };
+    }
+
+    public static void SetQualityIndex(int qualityIndex)
+    {
+        if (qualityIndex < 0 || qualityIndex >= QualityOptionCount)
+        {
+            Debug.LogError("The selected graphics quality is not in the available quality list.");
+            return;
+        }
+
+        PlayerPrefs.SetInt(QualityPreferenceKey, qualityIndex);
+        PlayerPrefs.Save();
+        ApplyQuality(qualityIndex);
+    }
+
+    private static void ApplyQuality(int qualityIndex)
+    {
+        switch (qualityIndex)
+        {
+            case 0:
+                QualitySettings.shadows = ShadowQuality.All;
+                QualitySettings.shadowResolution = ShadowResolution.VeryHigh;
+                QualitySettings.shadowDistance = 80f;
+                QualitySettings.antiAliasing = 4;
+                QualitySettings.lodBias = 2f;
+                QualitySettings.maximumLODLevel = 0;
+                QualitySettings.vSyncCount = 1;
+                break;
+            case 1:
+                QualitySettings.shadows = ShadowQuality.All;
+                QualitySettings.shadowResolution = ShadowResolution.Medium;
+                QualitySettings.shadowDistance = 40f;
+                QualitySettings.antiAliasing = 2;
+                QualitySettings.lodBias = 1f;
+                QualitySettings.maximumLODLevel = 0;
+                QualitySettings.vSyncCount = 1;
+                break;
+            case 2:
+                QualitySettings.shadows = ShadowQuality.Disable;
+                QualitySettings.shadowResolution = ShadowResolution.Low;
+                QualitySettings.shadowDistance = 0f;
+                QualitySettings.antiAliasing = 0;
+                QualitySettings.lodBias = 0.5f;
+                QualitySettings.maximumLODLevel = 1;
+                QualitySettings.vSyncCount = 0;
+                break;
         }
     }
 }
