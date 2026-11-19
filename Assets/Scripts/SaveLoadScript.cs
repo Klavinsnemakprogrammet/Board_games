@@ -22,12 +22,14 @@ public class SaveLoadScript : MonoBehaviour
         gameData.characterName = characterName;
         gameData.playerCount = playerCount;
         string json = JsonUtility.ToJson(gameData);
-        Debug.Log("PlayerData saved to " + Application.persistentDataPath + "/" + saveFileName);
+        string filePath = Path.Combine(Application.persistentDataPath, saveFileName);
+        File.WriteAllText(filePath, json);
+        Debug.Log("PlayerData saved to " + filePath);
     }
 
     public void LoadPlayerData()
     {
-        string filePath = Application.persistentDataPath + "/" + saveFileName;
+        string filePath = Path.Combine(Application.persistentDataPath, saveFileName);
         if(File.Exists(filePath))
         {
              string json = File.ReadAllText(filePath);

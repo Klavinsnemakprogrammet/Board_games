@@ -18,15 +18,14 @@ public class SceneChangeScript : MonoBehaviour
         if (string.Equals(action, "quit", StringComparison.OrdinalIgnoreCase))
         {
             yield return new WaitForSeconds(0.8f);
-             PlayerPrefs.DeleteAll();
-             if(UnityEditor.EditorApplication.isPlaying)
-             UnityEditor.EditorApplication.isPlaying = false;
-            else
-            {
+            PlayerPrefs.DeleteAll();
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
             yield return fadeScript.FadeOut(0.5f);
-             Application.Quit();   
-            } 
-             
+            Application.Quit();
+#endif
+
 
         }else if(string.Equals(action, "play", StringComparison.OrdinalIgnoreCase))
         {
