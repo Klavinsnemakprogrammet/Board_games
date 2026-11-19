@@ -844,6 +844,7 @@ GameObject:
   - component: {fileID: 158213989}
   - component: {fileID: 158213988}
   - component: {fileID: 158213987}
+  - component: {fileID: 158213991}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -1054,6 +1055,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 158213985}
   m_CullTransparentMesh: 1
+--- !u!114 &158213991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158213985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09a1198886394486ead3352e3757d7f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power: 0.1
+  jigPosition: 1
+  positionJigAmount: {x: 50, y: 50, z: 0}
+  positionFrequency: 5
+  jigRotation: 1
+  rotationJigAmount: {x: 0, y: 10000, z: 0}
+  rotationFrequency: 120
+  jigScale: 1
+  ScaleJigAmount: {x: 0, y: 0, z: 0}
+  ScaleFrequency: 10
 --- !u!1 &181483873
 GameObject:
   m_ObjectHideFlags: 0
@@ -2763,7 +2786,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &815028555
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2850,6 +2873,7 @@ GameObject:
   - component: {fileID: 895829271}
   - component: {fileID: 895829270}
   - component: {fileID: 895829269}
+  - component: {fileID: 895829273}
   m_Layer: 5
   m_Name: SettingButton
   m_TagString: Untagged
@@ -3060,6 +3084,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 895829267}
   m_CullTransparentMesh: 1
+--- !u!114 &895829273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895829267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09a1198886394486ead3352e3757d7f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power: 0.1
+  jigPosition: 1
+  positionJigAmount: {x: 50, y: 50, z: 0}
+  positionFrequency: 5
+  jigRotation: 1
+  rotationJigAmount: {x: 0, y: 0, z: 0}
+  rotationFrequency: 10
+  jigScale: 1
+  ScaleJigAmount: {x: 0, y: 0, z: 0}
+  ScaleFrequency: 10
 --- !u!1 &910548120
 GameObject:
   m_ObjectHideFlags: 0
@@ -3210,7 +3256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &991956088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3942,8 +3988,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 910548121}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.33333334, y: 0}
+  m_AnchorMax: {x: 0.33333334, y: 1}
   m_AnchoredPosition: {x: 13.455208, y: 0}
   m_SizeDelta: {x: 46.9105, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4666,7 +4712,7 @@ RectTransform:
   m_Father: {fileID: 675527071}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.33333334, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5180,6 +5226,7 @@ GameObject:
   - component: {fileID: 1755663690}
   - component: {fileID: 1755663689}
   - component: {fileID: 1755663688}
+  - component: {fileID: 1755663692}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -5414,6 +5461,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1755663686}
   m_CullTransparentMesh: 1
+--- !u!114 &1755663692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755663686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09a1198886394486ead3352e3757d7f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power: 0.1
+  jigPosition: 1
+  positionJigAmount: {x: 50, y: 50, z: 0}
+  positionFrequency: 5
+  jigRotation: 1
+  rotationJigAmount: {x: 0, y: 0, z: 0}
+  rotationFrequency: 10
+  jigScale: 1
+  ScaleJigAmount: {x: 0, y: 0, z: 0}
+  ScaleFrequency: 10
 --- !u!1 &1806337542
 GameObject:
   m_ObjectHideFlags: 0
@@ -5427,6 +5496,7 @@ GameObject:
   - component: {fileID: 1806337546}
   - component: {fileID: 1806337545}
   - component: {fileID: 1806337544}
+  - component: {fileID: 1806337548}
   m_Layer: 5
   m_Name: LeaderboardButton
   m_TagString: Untagged
@@ -5649,6 +5719,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1806337542}
   m_CullTransparentMesh: 1
+--- !u!114 &1806337548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806337542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09a1198886394486ead3352e3757d7f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power: 0.1
+  jigPosition: 1
+  positionJigAmount: {x: 50, y: 50, z: 0}
+  positionFrequency: 5
+  jigRotation: 1
+  rotationJigAmount: {x: 0, y: 0, z: 0}
+  rotationFrequency: 10
+  jigScale: 1
+  ScaleJigAmount: {x: 0, y: 0, z: 0}
+  ScaleFrequency: 10
 --- !u!1 &1831187259
 GameObject:
   m_ObjectHideFlags: 0
