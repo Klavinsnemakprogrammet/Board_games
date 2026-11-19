@@ -22,25 +22,25 @@ public class SceneChangeScript : MonoBehaviour
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else
-            yield return fadeScript.FadeOut(0.5f);
+            yield return fadeScript.FadeOut(0.3f);
             Application.Quit();
 #endif
 
 
         }else if(string.Equals(action, "play", StringComparison.OrdinalIgnoreCase))
         {
-            yield return fadeScript.FadeOut(0.5f);
+            yield return fadeScript.FadeOut(0.3f);
             saveLoadScript.SavePlayerData(charIndex, playerName, playerCount);
             SceneManager.LoadScene(1, LoadSceneMode.Single);
         } else if(string.Equals(action, "menu", StringComparison.OrdinalIgnoreCase))
         {
-            yield return fadeScript.FadeOut(0.5f);
+            yield return fadeScript.FadeOut(0.3f);
             SceneManager.LoadScene(0, LoadSceneMode.Single);
 
 
         }else if(string.Equals(action, "settings", StringComparison.OrdinalIgnoreCase))
         {
-            yield return fadeScript.FadeOut(0.5f);
+            yield return fadeScript.FadeOut(0.3f);
             saveLoadScript.SavePlayerData(charIndex, playerName, playerCount);
             SceneManager.LoadScene(1, LoadSceneMode.Single);
         }
@@ -58,12 +58,29 @@ public class SceneChangeScript : MonoBehaviour
 
     public void LoadSettings()
     {
-        SceneManager.LoadScene("SettingsScene");
+        StartCoroutine(LoadSceneAfterFade("SettingsScene"));
+    }
+
+    public void LoadLeaderboard()
+    {
+        StartCoroutine(LoadSceneAfterFade("LeaderboardScene"));
     }
 
     public void LoadMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        StartCoroutine(LoadSceneAfterFade("MainMenu"));
+    }
+
+    private IEnumerator LoadSceneAfterFade(string sceneName)
+    {
+        if (fadeScript == null)
+        {
+            Debug.LogError("Cannot load scene because no FadeScript is assigned.", this);
+            yield break;
+        }
+
+        yield return fadeScript.FadeOut(0.3f);
+        SceneManager.LoadScene(sceneName);
     }
 
     IEnumerator Exit()

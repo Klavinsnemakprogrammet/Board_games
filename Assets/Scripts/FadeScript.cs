@@ -7,46 +7,52 @@ using UnityEngine.UI;
 public class FadeScript : MonoBehaviour
 {
     Image img;
-    Color tempColor;
-    
+
     void Start()
     {
         img = GetComponent<Image>();
-        tempColor = img.color;
-        tempColor.a = 1f;
-        img.color = tempColor;
-        StartCoroutine(FadeIn(0.15f));
+        SetAlpha(1f);
+        StartCoroutine(FadeIn(0.2f));
     }
 
     public IEnumerator FadeIn(float fadeTime)
     {
-        for(float a=1f; a>= -0.05f; a-= 0.05f)
-        {
-            tempColor = img.color;
-            tempColor.a = a;
-            img.color = tempColor;
-            yield return new WaitForSeconds(fadeTime); 
-        }
-        img.raycastTarget = false;
+        yield return FadeTo(0f, fadeTime);
     }
 
     public IEnumerator FadeOut(float fadeTime)
     {
+        yield return FadeTo(1f, fadeTime);
+    }
+
+    private IEnumerator FadeTo(float targetAlpha, float duration)
+    {
         img.raycastTarget = true;
-        for(float a=0f; a<=1.05f; a+= 0.05f)
+        float startAlpha = img.color.a;
+
+        if (duration <= 0f)
         {
-            tempColor = img.color;
-            tempColor.a = a;
-            img.color = tempColor;
-            yield return new WaitForSeconds(fadeTime); 
+            SetAlpha(targetAlpha);
         }
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            float easedT = t * t * (3f - 2f * t);
+            SetAlpha(Mathf.Lerp(startAlpha, targetAlpha, easedT));
+            yield return null;
+        }
+
+        SetAlpha(targetAlpha);
         img.raycastTarget = false;
     }
 
-
-    // Update is called once per frame
-    void Update()
+    private void SetAlpha(float alpha)
     {
-        
+        Color color = img.color;
+        color.a = alpha;
+        img.color = color;
     }
 }

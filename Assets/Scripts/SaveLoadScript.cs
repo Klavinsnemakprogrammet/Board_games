@@ -5,7 +5,7 @@ public class SaveLoadScript : MonoBehaviour
 {
     public string saveFileName = "playerData.json";
 
-    [SerializeField]
+    [System.Serializable]
     public class GameData
     {
         public int characterIndex;
