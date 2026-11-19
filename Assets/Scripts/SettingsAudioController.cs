@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class SettingsAudioController : MonoBehaviour
@@ -309,6 +311,7 @@ public static class GameGraphicsSettings
 {
     private const string QualityPreferenceKey = "GraphicsQuality";
     private const int QualityOptionCount = 3;
+    private static UniversalRenderPipelineAsset runtimePipelineAsset;
 
     public static int QualityIndex =>
         Mathf.Clamp(PlayerPrefs.GetInt(QualityPreferenceKey, 0), 0, QualityOptionCount - 1);
@@ -342,32 +345,65 @@ public static class GameGraphicsSettings
         switch (qualityIndex)
         {
             case 0:
-                QualitySettings.shadows = ShadowQuality.All;
-                QualitySettings.shadowResolution = ShadowResolution.VeryHigh;
+                QualitySettings.shadows = UnityEngine.ShadowQuality.All;
+                QualitySettings.shadowResolution = UnityEngine.ShadowResolution.VeryHigh;
                 QualitySettings.shadowDistance = 80f;
                 QualitySettings.antiAliasing = 4;
                 QualitySettings.lodBias = 2f;
                 QualitySettings.maximumLODLevel = 0;
                 QualitySettings.vSyncCount = 1;
+                ApplyPipelineQuality(1.25f, 4, 100f, 4096, 4);
                 break;
             case 1:
-                QualitySettings.shadows = ShadowQuality.All;
-                QualitySettings.shadowResolution = ShadowResolution.Medium;
+                QualitySettings.shadows = UnityEngine.ShadowQuality.All;
+                QualitySettings.shadowResolution = UnityEngine.ShadowResolution.Medium;
                 QualitySettings.shadowDistance = 40f;
                 QualitySettings.antiAliasing = 2;
                 QualitySettings.lodBias = 1f;
                 QualitySettings.maximumLODLevel = 0;
                 QualitySettings.vSyncCount = 1;
+                ApplyPipelineQuality(0.8f, 2, 35f, 1024, 2);
                 break;
             case 2:
-                QualitySettings.shadows = ShadowQuality.Disable;
-                QualitySettings.shadowResolution = ShadowResolution.Low;
+                QualitySettings.shadows = UnityEngine.ShadowQuality.Disable;
+                QualitySettings.shadowResolution = UnityEngine.ShadowResolution.Low;
                 QualitySettings.shadowDistance = 0f;
                 QualitySettings.antiAliasing = 0;
                 QualitySettings.lodBias = 0.5f;
                 QualitySettings.maximumLODLevel = 1;
                 QualitySettings.vSyncCount = 0;
+                ApplyPipelineQuality(0.5f, 1, 0f, 256, 1);
                 break;
         }
+    }
+
+    private static void ApplyPipelineQuality(
+        float renderScale,
+        int msaaSamples,
+        float shadowDistance,
+        int shadowMapResolution,
+        int shadowCascadeCount)
+    {
+        if (runtimePipelineAsset == null)
+        {
+            UniversalRenderPipelineAsset activePipeline =
+                GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
+            if (activePipeline == null)
+            {
+                Debug.LogError(
+                    "Graphics quality profiles require an active Universal Render Pipeline asset.");
+                return;
+            }
+
+            runtimePipelineAsset = Object.Instantiate(activePipeline);
+            runtimePipelineAsset.hideFlags = HideFlags.HideAndDontSave;
+            QualitySettings.renderPipeline = runtimePipelineAsset;
+        }
+
+        runtimePipelineAsset.renderScale = renderScale;
+        runtimePipelineAsset.msaaSampleCount = msaaSamples;
+        runtimePipelineAsset.shadowDistance = shadowDistance;
+        runtimePipelineAsset.mainLightShadowmapResolution = shadowMapResolution;
+        runtimePipelineAsset.shadowCascadeCount = shadowCascadeCount;
     }
 }

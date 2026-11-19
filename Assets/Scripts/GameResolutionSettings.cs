@@ -19,7 +19,7 @@ public static class GameResolutionSettings
             return;
         }
 
-        Screen.SetResolution(width, height, GetResolutionMode());
+        Screen.SetResolution(width, height, Screen.fullScreenMode);
     }
 
     public static bool TryGetSavedResolution(out int width, out int height)
@@ -40,17 +40,6 @@ public static class GameResolutionSettings
         PlayerPrefs.SetInt(WidthKey, width);
         PlayerPrefs.SetInt(HeightKey, height);
         PlayerPrefs.Save();
-        Screen.SetResolution(width, height, GetResolutionMode());
-    }
-
-    private static FullScreenMode GetResolutionMode()
-    {
-        if (Screen.fullScreenMode == FullScreenMode.FullScreenWindow ||
-            Screen.fullScreenMode == FullScreenMode.MaximizedWindow)
-        {
-            return FullScreenMode.Windowed;
-        }
-
-        return Screen.fullScreenMode;
+        Screen.SetResolution(width, height, Screen.fullScreenMode);
     }
 }
