@@ -3,15 +3,25 @@ using UnityEngine;
 
 public class NameScript : MonoBehaviour
 {
-   TextMeshPro TMP;
+    TMP_Text nameText;
+
     void Awake()
     {
-        TMP = transform.Find("NameField").gameObject.GetComponent<TextMeshPro>();
+        nameText = transform.Find("NameField")?.GetComponent<TMP_Text>();
+        if (nameText == null)
+        {
+            Debug.LogError("NameField was not found on this player.", this);
+        }
     }
 
     public void SetPlayerName(string name)
     {
-        TMP.text = name;
-        TMP.color = new Color32((byte)Random.Range(0, 255), (byte)Random.Range(0, 255), (byte)Random.Range(0, 255), 255);
+        if (nameText == null)
+        {
+            return;
+        }
+
+        nameText.text = name;
+        nameText.color = new Color32((byte)Random.Range(0, 255), (byte)Random.Range(0, 255), (byte)Random.Range(0, 255), 255);
     }
 }

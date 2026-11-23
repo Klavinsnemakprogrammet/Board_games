@@ -18,12 +18,18 @@ public class ChooseCharacterScript : MonoBehaviour
     void Awake()
     {
         characterIndex = 0;
-        foreach (GameObject character in characters)
+        if (characters == null || characters.Length == 0)
         {
-            character.SetActive(false);
-
+            Debug.LogError("No characters have been assigned.", this);
         }
-        characters[characterIndex].SetActive(true);
+        else
+        {
+            foreach (GameObject character in characters)
+            {
+                character.SetActive(false);
+            }
+            characters[characterIndex].SetActive(true);
+        }
 
         if (playerCountSlider == null)
         {
@@ -60,22 +66,27 @@ public class ChooseCharacterScript : MonoBehaviour
 
     public void NextCharacter()
     {
-        characters[characterIndex].SetActive(false);
-        characterIndex++;
-        if (characterIndex == -1 ){
-            characterIndex = characters.Length - 1;
+        ChangeCharacter(1);
     }
-    characters[characterIndex].SetActive(true);
-    }
+
     public void PreviousCharacter()
     {
+        ChangeCharacter(-1);
+    }
+
+    void ChangeCharacter(int direction)
+    {
+        if (characters == null || characters.Length == 0)
+        {
+            Debug.LogError("No characters have been assigned.", this);
+            return;
+        }
+
         characters[characterIndex].SetActive(false);
-        characterIndex--;
-        if (characterIndex == -1 ){
-            characterIndex = characters.Length - 1;
+        characterIndex = (characterIndex + direction + characters.Length) % characters.Length;
+        characters[characterIndex].SetActive(true);
     }
-    characters[characterIndex].SetActive(true);
-    }
+
     public void Play(){
     characterName = inputField.GetComponent<TMP_InputField>().text;
     if(characterName.Length > 2)
